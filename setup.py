@@ -10,9 +10,10 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=7.0', ]
+requirements = ['Click>=7.0', 'numpy>=1.18.5','missingno', 'pandas>=1.1.3', 'seaborn>=0.11.0', 'matplotlib>=3.2.2', 'scikit-learn>=0.23.1', 
+'scipy','IPython','ipywidgets','tzlocal','pyperclip']
 
-test_requirements = [ ]
+test_requirements = [*requirements ]
 
 setup(
     author="James Irving",

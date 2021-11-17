@@ -27,7 +27,7 @@ def clear():
 
 def import_packages(import_list_of_tuples = None,  display_table=True, 
                     check_versions=True, link_text=None,
-                    check_packages = ['matplotlib','seaborn','pandas','numpy','sklearn','fsds'] ): #append_to_default_list=True, imports_have_description = True):
+                    check_packages = ['matplotlib','seaborn','pandas','numpy','sklearn','cdds'] ): #append_to_default_list=True, imports_have_description = True):
     """Uses the exec function to load in a list of tuples with:
     [('module','md','example generic tuple item')] formatting.
     >> Default imports_list:
@@ -112,9 +112,9 @@ def import_packages(import_list_of_tuples = None,  display_table=True,
         # # df_imports = df_imports[['Handle','Package','Documentation','Version']]
         # df_imports = df_imported[['Handle','Package','Documentation']]
         #.sort_values('Package').
-        import fsds as fs
+        import cdds as ds
         try:
-            print(f"fsds v{fs.__version__} loaded.")#  Read the docs: https://fs-ds.readthedocs.io/en/latest/ ")
+            print(f"cdds v{ds.__version__} loaded.")#  Read the docs: https://fs-ds.readthedocs.io/en/latest/ ")
         except:
             pass
         dfs = df_imports.style.hide_index().set_caption('Loaded Packages & Info')

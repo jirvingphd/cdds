@@ -2,7 +2,7 @@
 
 __author__ = """James Irving"""
 __email__ = 'james.irving.phd@gmail.com'
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 from cdds import datasets
 from cdds.imports import check_package_versions

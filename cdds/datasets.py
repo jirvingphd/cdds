@@ -27,6 +27,16 @@ def read_csv_from_url(url,verbose=False,read_csv_kwds={}):
     return df
 
 
+def convert_google_share_url(url):
+    """Get a pandas read_csv compatble URL from a share url
+    Code adapted from:
+    - https://discuss.streamlit.io/t/google-drive-csv-file-link-to-pandas-dataframe/8057
+    """
+    fpath = 'https://drive.google.com/uc?export=download&id='+url.split('/')[-2]
+    return fpath
+
+
+
 ### ADD CODING DOJO DATASETS HERE
 
 

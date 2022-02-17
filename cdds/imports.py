@@ -2,7 +2,7 @@
 """Convience module. 'from bs_ds.imports import *' will pre-load pd,np,plt,mpl,sns"""
 
 from os import link
-
+from cdds.inspect import check_package_versions
 
 def global_imports(modulename,shortname = None, asfunction = False,check_vers=True):
         """from stackoverflow: https://stackoverflow.com/questions/11990556/how-to-make-global-imports-from-a-function,
@@ -147,44 +147,6 @@ def clickable(path,label=None):
     else: 
         return '<a href="{}">{}</a>'.format(path, label)  
 
-
-
-def check_package_versions(packages = ['matplotlib','seaborn','pandas','numpy','sklearn','fsds'],
-                           fpath=False, show_only=True):
-    """Imports packages and saves the name and version number to a dataframe"""
-    import pandas as pd
-    import inspect
-    version_list = [['Package','Version']]
-    
-    ## Remove submodules from version check (wont have version #)
-    for package in packages:
-        if '.' not in package:
-            try:
-                ## use global imports and retrieve version #
-                vers = global_imports(package,None,check_vers=True)
-            except:
-                vers = '!'
-            version_list.append([package,vers])
-
-    # Convert to df
-    pkg_vers_df = pd.DataFrame(version_list[1:],columns=version_list[0])
-    
-    ## If get_fpath
-    if fpath==True:
-        pkg_vers_df['File'] = pkg_vers_df['Package'].map(lambda x: inspect.getsourcefile(globals()[x]))
-        # for package in packages:
-    
-    if show_only==True: 
-        if fpath==True:   
-            dfs = pkg_vers_df.style.set_properties(subset='File',
-                                                **{'width':"600px","text-align":'center'})
-        else:
-            dfs = pkg_vers_df.style
-        display(dfs.set_caption('Package Versions'))
-    
-        
-    else:
-        return pkg_vers_df
 
 
 

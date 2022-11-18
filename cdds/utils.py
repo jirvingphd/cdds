@@ -193,3 +193,15 @@ def get_attributes(obj,private=False):
     else:
         filt_methods = list(filter(lambda x: '_' not in x[0] ,method_list))
     return  filt_methods
+    
+    
+    
+def clickable_link(path,label=None):
+    """Adapted from: https://www.geeksforgeeks.org/how-to-create-a-table-with-clickable-hyperlink-to-a-local-file-in-pandas/"""
+    # returns the final component of a url
+    # f_url = os.path.basename(path)
+    if label is None:
+    # convert the url into link
+        return '<a href="{}">{}</a>'.format(path, path)
+    else: 
+        return '<a href="{}">{}</a>'.format(path, label)  

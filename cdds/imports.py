@@ -39,7 +39,7 @@ def import_packages(import_list_of_tuples = None,  display_table=True,
     ('IPython.display','dp','Display modules with helpful display and clearing commands.')
     ('cdds','ds','Custom data science bootcamp student package')]
     """
-
+    from cdds.utils import clickable_link
 
     # import_list=[]
     from IPython.display import display
@@ -112,24 +112,33 @@ def import_packages(import_list_of_tuples = None,  display_table=True,
         # # df_imports = df_imports[['Handle','Package','Documentation','Version']]
         # df_imports = df_imported[['Handle','Package','Documentation']]
         #.sort_values('Package').
+    
+        
         import cdds as ds
         try:
             print(f"cdds v{ds.__version__} loaded.")#  Read the docs: https://fs-ds.readthedocs.io/en/latest/ ")
         except:
             pass
-        dfs = df_imports.style.hide_index().set_caption('Loaded Packages & Info')
+        
+        # Updating styler code 
+        import pandas as pd 
+        pd_vers = pd.__version__
+        if pd_vers > "1.3.5":
+            dfs = df_imports.style.hide(axis='index').set_caption('Loaded Packages & Info')
+        else:
+            dfs = df_imports.style.hide_index().set_caption('Loaded Packages & Info')
         
         ## Determine if links will have display text
         if link_text is None:
-            kwargs = {'Documentation':clickable}
+            kwargs = {'Documentation':clickable_link}
 
         else:
-            kwargs = {'Documentation':lambda x:  clickable(x,link_text)}
+            kwargs = {'Documentation':lambda x:  clickable_link(x,link_text)}
 
         ## apply kwargs above and set additional properties
         display(dfs.format(kwargs).set_properties(**{'text-align':'left'}).\
                                 set_properties(subset=['Imported','Handle'],**{'text-align':'center'}) )
-            # display(dfs.format({'Documentation':lambda x:  clickable(x,link_text)}))
+            # display(dfs.format({'Documentation':lambda x:  clickable_link(x,link_text)}))
         # return df_imports
 
     # or just print statement
@@ -137,15 +146,15 @@ def import_packages(import_list_of_tuples = None,  display_table=True,
         print('Modules successfully loaded.')
         
 
-def clickable(path,label=None):
-    """Adapted from: https://www.geeksforgeeks.org/how-to-create-a-table-with-clickable-hyperlink-to-a-local-file-in-pandas/"""
-    # returns the final component of a url
-    # f_url = os.path.basename(path)
-    if label is None:
-    # convert the url into link
-        return '<a href="{}">{}</a>'.format(path, path)
-    else: 
-        return '<a href="{}">{}</a>'.format(path, label)  
+# def clickable(path,label=None):
+#     """Adapted from: https://www.geeksforgeeks.org/how-to-create-a-table-with-clickable-hyperlink-to-a-local-file-in-pandas/"""
+#     # returns the final component of a url
+#     # f_url = os.path.basename(path)
+#     if label is None:
+#     # convert the url into link
+#         return '<a href="{}">{}</a>'.format(path, path)
+#     else: 
+#         return '<a href="{}">{}</a>'.format(path, label)  
 
 
 

@@ -5,7 +5,7 @@ __email__ = 'james.irving.phd@gmail.com'
 __version__ = '0.1.3'
 
 from cdds import datasets
-from cdds.cdds import check_package_versions
+from cdds.inspect import check_package_versions
 from cdds import inspect
 
 from cdds.inspect import ihelp 

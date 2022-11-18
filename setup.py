@@ -44,6 +44,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/jirvingphd/cdds',
-    version='0.2.2',
+    version='1.0.0',
     zip_safe=False,
 )

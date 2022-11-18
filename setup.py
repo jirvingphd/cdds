@@ -10,8 +10,9 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=7.0', 'numpy>=1.18.5','missingno', 'pandas>=1.1.3', 'seaborn>=0.11.0', 'matplotlib>=3.2.2', 'scikit-learn>=0.23.1', 
-'scipy','IPython','ipywidgets','tzlocal','pyperclip']
+requirements = ['Click>=7.0', 'numpy>=1.21.6, <=1.22.4','missingno==0.5.1', 'pandas>=1.3.5, <=1.4.2', 
+'seaborn>=0.11.0', 'matplotlib>=3.2.2, <=3.4.3', 'scikit-learn>=0.23.1, <=1.1.*', 
+'scipy==1.8.*','IPython','ipywidgets==8.0.2','tzlocal','pyperclip']
 
 test_requirements = [*requirements ]
 
@@ -28,7 +29,7 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
     ],
-    description="Package for coding dojo data science students and faculty.",
+    description="Package for coding dojo data science students and staff.",
     entry_points={
         'console_scripts': [
             'cdds=cdds.cli:main',

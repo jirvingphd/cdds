@@ -7,5 +7,7 @@ __version__ = '0.2.0'
 from cdds import datasets
 from cdds.inspect import check_package_versions
 from cdds import inspect
+from cdds import filetools
+from cdds import utils
 
 from cdds.inspect import ihelp 

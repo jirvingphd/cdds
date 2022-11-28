@@ -14,7 +14,7 @@
     5. A) Upload to twine: ~~`twine upload dist/*`~~ [only if using general full-account credentials]
     5. B) Upload to twine with an API token:
         - Use the `--repository` flag with the "server" name from $HOME/.pypirc
-        - `twine upload --repository cdds dist*`
+        - `twine upload --repository cdds dist/*`
     
 - [11/28/22 Update] Using project-based API token for upload
     - Follow the following guides to set up your own "$HOME/.pypirc" file with the API token: https://pypi.org/help/#apitoken

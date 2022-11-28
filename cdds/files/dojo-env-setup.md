@@ -112,7 +112,7 @@ ___
 	python -m ipykernel install --user --name dojo-env --display-name "Python (dojo-env)"
 	
 	touch $HOME/.zshrc
-	echo "source activate dojo-env" >> $HOME/.zshrc
+	echo "conda activate dojo-env" >> $HOME/.zshrc
 	echo 'alias jnb="jupyter notebook"' >> $HOME/.zshrc
 	
 	source $HOME/.zshrc
@@ -137,7 +137,7 @@ ___
 	python -m ipykernel install --user --name dojo-env --display-name "Python (dojo-env)"
 	
 	touch $HOME/.zshrc
-	echo "source activate dojo-env" >> $HOME/.zshrc
+	echo "conda activate dojo-env" >> $HOME/.zshrc
 	echo 'alias jnb="jupyter notebook"' >> $HOME/.zshrc
 	
 	source $HOME/.zshrc

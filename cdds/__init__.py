@@ -12,3 +12,4 @@ from . import inspect
 from . import utils
 
 from .inspect import ihelp 
+from .cdds import dojo_env_setup_instructions

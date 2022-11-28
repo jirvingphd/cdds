@@ -11,4 +11,11 @@
     2. Commit all changes.
     3. Increase version # with bump2version `bump2version patch` or `bump2version minor`
     4. Build distribution archives: `python -m build`
-    5. Upload to twine: `twine upload dist/*`
+    5. A) Upload to twine: ~~`twine upload dist/*`~~ [only if using general full-account credentials]
+    5. B) Upload to twine with an API token:
+        - Use the `--repository` flag with the "server" name from $HOME/.pypirc
+        - `twine upload --repository cdds dist*`
+    
+- [11/28/22 Update] Using project-based API token for upload
+    - Follow the following guides to set up your own "$HOME/.pypirc" file with the API token: https://pypi.org/help/#apitoken
+    - For additional info on the twine upload commands with project APIs: https://kynan.github.io/blog/2020/05/23/how-to-upload-your-package-to-the-python-package-index-pypi-test-server 

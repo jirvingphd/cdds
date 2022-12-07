@@ -584,29 +584,30 @@ def get_df_memory_usage(df,units='mb'):
 	print(f"- Total Memory Usage = {val} {units.upper()}")
     
     
-def get_filesize(fname, units='mb'):
-	"""Get size of file at given path in MB or GB"""
-	if units.lower()=='mb':
-		denom = 1e6
-	elif units.lower()=='gb':
-		denom = 1e9
-	elif units.lower()=='kb':
-		denom = 1e3
-	else:
-		raise Exception('Units must be "kb","mb", or "gb"')
-		
-	import os
-	size = os.path.getsize(fname)
+def get_filesize(fname, units='mb', verbose=True):
+    """Get size of file at given path in MB or GB"""
+    if units.lower()=='mb':
+        denom = 1e6
+    elif units.lower()=='gb':
+        denom = 1e9
+    elif units.lower()=='kb':
+        denom = 1e3
+    else:
+        raise Exception('Units must be "kb","mb", or "gb"')
+        
+    import os
+    size = os.path.getsize(fname)
 
-	val = size/denom
-	# str_val = f"{val} {units.upper()}"
-	print(f"- {fname} is {val} {units.upper()} on disk.")
+    val = size/denom
+    # str_val = f"{val} {units.upper()}"
+    if verbose:
+        print(f"- {fname} is {val} {units.upper()} on disk.")
 
-	return val
-	
+    return val
 
 
-def inspect_file(fname, units='mb'):
+
+def inspect_file(fname, units='mb',verbose=False):
 	"""Returns a dictionary with detailed file information including:
 	- File name, extension, file size, date created, date modified, etc.
 	Args:
@@ -626,7 +627,7 @@ def inspect_file(fname, units='mb'):
 	
 	## Get file size 
 	raw_size = os.path.getsize(fname)
-	size = get_filesize(fname,units=units)
+	size = get_filesize(fname,units=units, verbose=verbose)
 	str_size = f"{size} {units}"
 	
 	# Get path info
@@ -641,3 +642,58 @@ def inspect_file(fname, units='mb'):
 	'Relative Path':rel_path,'Absolute Path':abs_path}
 	
 	return file_info
+    
+    
+def get_downloaded_file_paths(folder="Downloads", fname_query='/**/Part*',
+                             return_fname_only =False,
+                             include_fileinfo=True, verbose=True,
+                             recursive=True):
+    """Returns a filename or list of dictionaries with file information
+        "Filepath", "Name", 'Created', 'Modified',  'Size', etc
+
+    Args:
+        folder (str, optional): _description_. Defaults to "Downloads".
+        fname_query (str, optional): _description_. Defaults to '/**/Part*'.
+        return_fname_only (bool, optional): _description_. Defaults to False.
+        include_fileinfo (bool, optional): _description_. Defaults to True.
+        verbose (bool, optional): _description_. Defaults to True.
+        recursive (bool, optional): _description_. Defaults to True.
+
+    Returns:
+        _type_: _description_
+    """
+    import os,glob
+
+
+    if folder=="Downloads":
+        ## Run the cell below to attempt to programmatically find your crime file
+
+        ## Getting the home folder from environment variables
+        home_folder = os.environ['HOME']
+        # print("- Your Home Folder is: " + home_folder)
+
+        ## Check for downloads folder
+        if 'Downloads' in os.listdir(home_folder):
+            dl_folder = os.path.abspath(os.path.join(home_folder,'Downloads'))
+    else:
+        dl_folder = os.path.abspath(folder)
+
+    if verbose:
+        # Print the Downloads folder path
+        print(f"- Your Downloads folder is '{dl_folder}/'\n")
+
+    ## checking for crime files using glob
+    found_files = sorted(glob.glob(dl_folder+fname_query,recursive=recursive))
+    
+    
+    if include_fileinfo:
+        file_info = [inspect_file(f) for f in found_files]
+        found_files = sorted(file_info, key=lambda x: x['Created'], reverse=True)
+    
+    if return_fname_only:
+        return found_files[0]['Filepath']
+
+    else: 
+        return found_files
+    
+

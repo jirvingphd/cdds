@@ -19,3 +19,13 @@
 - [11/28/22 Update] Using project-based API token for upload
     - Follow the following guides to set up your own "$HOME/.pypirc" file with the API token: https://pypi.org/help/#apitoken
     - For additional info on the twine upload commands with project APIs: https://kynan.github.io/blog/2020/05/23/how-to-upload-your-package-to-the-python-package-index-pypi-test-server 
+    
+    
+### After bumpversion, can run this block:
+```bash
+python3 -m pip install --upgrade pip
+python3 -m pip install --upgrade build
+python3 -m pip install --upgrade twine
+python -m build 
+twine upload --repository cdds dist/*
+```

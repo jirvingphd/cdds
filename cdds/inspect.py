@@ -644,9 +644,61 @@ def inspect_file(fname, units='mb',verbose=False):
 	return file_info
     
     
+# def get_downloaded_file_paths(folder="Downloads", fname_query='/**/Part*',
+#                              return_fname_only =False,
+#                              include_fileinfo=True, verbose=True,
+#                              recursive=True):
+#     """Returns a filename or list of dictionaries with file information
+#         "Filepath", "Name", 'Created', 'Modified',  'Size', etc
+
+#     Args:
+#         folder (str, optional): _description_. Defaults to "Downloads".
+#         fname_query (str, optional): _description_. Defaults to '/**/Part*'.
+#         return_fname_only (bool, optional): _description_. Defaults to False.
+#         include_fileinfo (bool, optional): _description_. Defaults to True.
+#         verbose (bool, optional): _description_. Defaults to True.
+#         recursive (bool, optional): _description_. Defaults to True.
+
+#     Returns:
+#         _type_: _description_
+#     """
+#     import os,glob
+
+
+#     if folder=="Downloads":
+#         ## Run the cell below to attempt to programmatically find your crime file
+
+#         ## Getting the home folder from environment variables
+#         home_folder = os.environ['HOME']
+#         # print("- Your Home Folder is: " + home_folder)
+
+#         ## Check for downloads folder
+#         if 'Downloads' in os.listdir(home_folder):
+#             dl_folder = os.path.abspath(os.path.join(home_folder,'Downloads'))
+#     else:
+#         dl_folder = os.path.abspath(folder)
+
+#     if verbose:
+#         # Print the Downloads folder path
+#         print(f"- Your Downloads folder is '{dl_folder}/'\n")
+
+#     ## checking for crime files using glob
+#     found_files = sorted(glob.glob(dl_folder+fname_query,recursive=recursive))
+    
+    
+#     if include_fileinfo:
+#         file_info = [inspect_file(f) for f in found_files]
+#         found_files = sorted(file_info, key=lambda x: x['Created'], reverse=True)
+    
+#     if return_fname_only:
+#         return found_files[0]['Filepath']
+
+#     else: 
+#         return found_files
+    
+
 def get_downloaded_file_paths(folder="Downloads", fname_query='/**/Part*',
-                             return_fname_only =False,
-                             include_fileinfo=True, verbose=True,
+                             return_fname_only =False, verbose=True,
                              recursive=True):
     """Returns a filename or list of dictionaries with file information
         "Filepath", "Name", 'Created', 'Modified',  'Size', etc
@@ -655,7 +707,6 @@ def get_downloaded_file_paths(folder="Downloads", fname_query='/**/Part*',
         folder (str, optional): _description_. Defaults to "Downloads".
         fname_query (str, optional): _description_. Defaults to '/**/Part*'.
         return_fname_only (bool, optional): _description_. Defaults to False.
-        include_fileinfo (bool, optional): _description_. Defaults to True.
         verbose (bool, optional): _description_. Defaults to True.
         recursive (bool, optional): _description_. Defaults to True.
 
@@ -663,7 +714,7 @@ def get_downloaded_file_paths(folder="Downloads", fname_query='/**/Part*',
         _type_: _description_
     """
     import os,glob
-
+    import cdds as ds
 
     if folder=="Downloads":
         ## Run the cell below to attempt to programmatically find your crime file
@@ -678,22 +729,20 @@ def get_downloaded_file_paths(folder="Downloads", fname_query='/**/Part*',
     else:
         dl_folder = os.path.abspath(folder)
 
-    if verbose:
-        # Print the Downloads folder path
-        print(f"- Your Downloads folder is '{dl_folder}/'\n")
 
     ## checking for crime files using glob
     found_files = sorted(glob.glob(dl_folder+fname_query,recursive=recursive))
     
-    
-    if include_fileinfo:
-        file_info = [inspect_file(f) for f in found_files]
-        found_files = sorted(file_info, key=lambda x: x['Created'], reverse=True)
+    ## Get List of dictinaries of file info and sort by created
+    file_info = [ds.inspect.inspect_file(f,verbose=False) for f in found_files]
+    found_files = sorted(file_info, key=lambda x: x['Created'], reverse=True)
+    most_recent = found_files[0]['Filepath']
     
     if return_fname_only:
-        return found_files[0]['Filepath']
-
-    else: 
-        return found_files
+        return most_recent
     
+    if verbose:
+        # Print the Downloads folder path
+        print(f"- The most recent matching file is '{most_recent}/'\n")
 
+    return found_files

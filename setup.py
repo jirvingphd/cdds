@@ -10,9 +10,12 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=7.0', 'numpy>=1.21.6, <=1.22.4','missingno==0.5.1', 'pandas>=1.3.5, <=1.4.2', 
-'seaborn>=0.11.0', 'matplotlib>=3.2.2, <=3.4.3', 'scikit-learn>=0.23.1, <=1.1.*', 
-'scipy==1.8.*','IPython','ipywidgets==8.0.2','tzlocal','pyperclip']
+# pre dojo-env updating to python 3.9
+# requirements = ['Click>=7.0', 'numpy>=1.21.6, <=1.22.4','missingno==0.5.1', 'pandas>=1.3.5, <=1.4.2', 
+# 'seaborn>=0.11.0', 'matplotlib>=3.2.2, <=3.4.3', 'scikit-learn>=0.23.1, <=1.1.*', 
+# 'scipy==1.8.*','IPython','ipywidgets==8.0.2','tzlocal','pyperclip']
+requirements = ['Click>=7.0', 'numpy','missingno', 'pandas>=1.3.5', 'seaborn>=0.11.0', 
+'matplotlib>=3.2.2', 'scikit-learn>=1.1.3', 'scipy','IPython','ipywidgets','tzlocal','pyperclip']
 
 test_requirements = [*requirements ]
 

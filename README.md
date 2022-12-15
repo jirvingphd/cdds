@@ -20,7 +20,15 @@
     - Follow the following guides to set up your own "$HOME/.pypirc" file with the API token: https://pypi.org/help/#apitoken
     - For additional info on the twine upload commands with project APIs: https://kynan.github.io/blog/2020/05/23/how-to-upload-your-package-to-the-python-package-index-pypi-test-server 
     
-    
+```bash
+pip install --upgrade bump2version
+pip install --upgrade pip
+pip install --upgrade build
+pip install --upgrade twine
+```
+```
+bump2version patch #or minor/major
+```
 ### After bumpversion, can run this block:
 ```bash
 python3 -m pip install --upgrade pip

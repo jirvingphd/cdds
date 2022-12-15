@@ -29,11 +29,8 @@ pip install --upgrade twine
 ```
 bump2version patch #or minor/major
 ```
-### After bumpversion, can run this block:
+### After install and bump2version, can run this block:
 ```bash
-python3 -m pip install --upgrade pip
-python3 -m pip install --upgrade build
-python3 -m pip install --upgrade twine
 python -m build 
 twine upload --repository cdds dist/*
 ```

@@ -51,6 +51,7 @@ def ihelp(function_or_mod, show_help=False, show_code=True,return_code=False,mar
     """Call on any module or functon to display the object's
     help command printout AND/OR soruce code displayed as Markdown
     using Python-syntax"""
+    DeprecationWarning("ihelp has been renamed to show_code and will be removed in a future update.")
     import inspect
     
     try:
@@ -105,6 +106,62 @@ def ihelp(function_or_mod, show_help=False, show_code=True,return_code=False,mar
         return source_DF
 
 
+def show_code(function_or_mod, show_help=False, show_code=True,return_code=False,markdown=True,file_location=False):
+    """Call on any module or functon to display the object's
+    help command printout AND/OR soruce code displayed as Markdown
+    using Python-syntax"""
+    import inspect
+    
+    try:
+        from IPython.display import display, Markdown
+    except:
+        print('[!] IPython was not found.')
+        
+    page_header = '---'*28
+    # footer = '---'*28+'\n'
+    if show_help:
+        print(page_header)
+        banner = ''.join(["---"*2,' HELP ',"---"*24,'\n'])
+        print(banner)
+        help(function_or_mod)
+        # print(footer)
+        
+    import sys
+    if "google.colab" in sys.modules:
+        markdown=False
+
+    if show_code:
+        print(page_header)
+
+        banner = ''.join(["---"*2,' SOURCE -',"---"*23])
+        print(banner)
+        try:
+            import inspect
+            source_DF = inspect.getsource(function_or_mod)
+
+            if markdown == True:
+                
+                output = "```python" +'\n'+source_DF+'\n'+"```"
+                display(Markdown(output))
+            else:
+                print(source_DF)
+
+        except TypeError:
+            pass
+            # display(Markdown)
+
+
+    if file_location:
+        file_loc = inspect.getfile(function_or_mod)
+        banner = ''.join(["---"*2,' FILE LOCATION ',"---"*21])
+        print(page_header)
+        print(banner)
+        print(file_loc)
+
+    # print(footer)
+
+    if return_code:
+        return source_DF
 
 def ihelp_menu(function_list,box_style='warning', to_embed=False):#, to_file=False):#, json_file='ihelp_output.txt' ):
     """

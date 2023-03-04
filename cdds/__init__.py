@@ -2,7 +2,7 @@
 
 __author__ = """James Irving"""
 __email__ = 'james.irving.phd@gmail.com'
-__version__ = '1.1.0'
+__version__ = '1.1.1'
 
 from . import datasets
 # from .inspect import check_package_versions
